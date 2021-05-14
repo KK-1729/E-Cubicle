@@ -1,0 +1,32 @@
+<html>
+
+<head>
+    <!-- Load the latest version of TensorFlow.js -->
+    <script src="https://unpkg.com/@tensorflow/tfjs"></script>
+    <script src="https://unpkg.com/@tensorflow-models/mobilenet"></script>
+    <script src="https://unpkg.com/@tensorflow-models/knn-classifier"></script>
+    <link rel="stylesheet" type="text/css" href="index.css">
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap" rel="stylesheet"> 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>SafeWork</title>
+</head>
+
+<body>
+    <div class="center">
+        <div class="container">
+                    <video autoplay playsinline muted id="webcam" width="500" height="500"></video>
+
+            <div class="buttons">
+                <button id="class-a">Proper Posture</button>
+                <button id="class-b">improper Posture</button>
+            </div>
+            
+        </div>
+       
+        
+    </div>
+    <!-- Load index.js after the content of the page -->
+    <script src="index.js"></script>
+</body>
+
+</html>
