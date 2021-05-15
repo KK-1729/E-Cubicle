@@ -1,32 +1,51 @@
-<html>
-
+<!DOCTYPE html>
+<html lang="en" >
 <head>
-    <!-- Load the latest version of TensorFlow.js -->
-    <script src="https://unpkg.com/@tensorflow/tfjs"></script>
-    <script src="https://unpkg.com/@tensorflow-models/mobilenet"></script>
-    <script src="https://unpkg.com/@tensorflow-models/knn-classifier"></script>
-    <link rel="stylesheet" type="text/css" href="index.css">
-    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap" rel="stylesheet"> 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <title>SafeWork</title>
+  <meta charset="UTF-8">
+  <title>E-Cubical</title>
+  <script src="https://unpkg.com/@tensorflow/tfjs"></script>
+  <script src="https://unpkg.com/@tensorflow-models/mobilenet"></script>
+  <script src="https://unpkg.com/@tensorflow-models/knn-classifier"></script>
+  <link rel="stylesheet" type="text/css" href="index.css">
+  <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap" rel="stylesheet"> 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="./style.css">
+
 </head>
-
 <body>
-    <div class="center">
-        <div class="container">
-                    <video autoplay playsinline muted id="webcam" width="500" height="500"></video>
-
-            <div class="buttons">
-                <button id="class-a">Proper Posture</button>
-                <button id="class-b">improper Posture</button>
-            </div>
-            
-        </div>
-       
-        
+<!-- partial:index.partial.html -->
+<div class='container'>
+  <div class='left-side-navbar'>
+    <div class='logo'>Cu.</div>
+    <div class='wrapper'>
+      <div>
+        <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="18px" height="20px" viewBox="0 0 115.618 122.88" enable-background="new 0 0 115.618 122.88" xml:space="preserve"><g><path fill-rule="evenodd" clip-rule="evenodd" d="M16.151,0L16.151,0c5.292,0,9.621,4.33,9.621,9.622v21.595 c-2.864-1.43-6.095-2.236-9.514-2.236c-3.504,0-6.811,0.845-9.728,2.342V9.622C6.53,4.33,10.859,0,16.151,0L16.151,0z M99.36,34.06 c8.979,0,16.258,7.278,16.258,16.257c0,8.979-7.279,16.258-16.258,16.258s-16.257-7.278-16.257-16.258 C83.104,41.338,90.382,34.06,99.36,34.06L99.36,34.06z M99.254,0L99.254,0c5.292,0,9.621,4.33,9.621,9.622v21.595 c-2.864-1.43-6.095-2.236-9.515-2.236c-3.504,0-6.811,0.845-9.728,2.342V9.622C89.633,4.33,93.962,0,99.254,0L99.254,0z M108.875,69.417v43.842c0,5.291-4.329,9.621-9.621,9.621l0,0c-5.292,0-9.621-4.33-9.621-9.621V69.312 c2.917,1.496,6.224,2.341,9.728,2.341C102.78,71.652,106.011,70.847,108.875,69.417L108.875,69.417z M57.617,93.896 c8.979,0,16.257-7.278,16.257-16.257c0-8.979-7.278-16.258-16.257-16.258c-8.979,0-16.257,7.278-16.257,16.258 C41.36,86.617,48.638,93.896,57.617,93.896L57.617,93.896z M57.51,122.88L57.51,122.88c5.292,0,9.622-4.331,9.622-9.621V96.689 c-2.864,1.43-6.053,2.236-9.515,2.236s-6.811-0.846-9.728-2.343v16.676C47.89,118.55,52.219,122.88,57.51,122.88L57.51,122.88z M67.132,58.489V9.622C67.132,4.331,62.802,0,57.51,0l0,0c-5.292,0-9.621,4.33-9.621,9.622v48.974 c2.917-1.497,6.266-2.343,9.728-2.343S64.268,57.06,67.132,58.489L67.132,58.489z M16.257,34.06 c8.979,0,16.257,7.278,16.257,16.257c0,8.979-7.278,16.258-16.257,16.258C7.279,66.574,0,59.296,0,50.316 C0,41.338,7.279,34.06,16.257,34.06L16.257,34.06z M25.771,69.417v43.842c0,5.291-4.329,9.621-9.621,9.621l0,0 c-5.292,0-9.621-4.33-9.621-9.621V69.312c2.917,1.496,6.224,2.341,9.728,2.341C19.677,71.652,22.907,70.847,25.771,69.417 L25.771,69.417z"/></g></svg>
+      </div>
+      <div>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#A49BDA" width="18px" height="20px"><path d="M0 0h24v24H0z" fill="none"/><path d="M13 13v8h8v-8h-8zM3 21h8v-8H3v8zM3 3v8h8V3H3zm13.66-1.31L11 7.34 16.66 13l5.66-5.66-5.66-5.65z"/></svg>
+      </div>
+      <div>
+       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="gray" width="20px" height="20px"><path d="M0 0h24v24H0z" fill="none"/><path d="M12 5.9c1.16 0 2.1.94 2.1 2.1s-.94 2.1-2.1 2.1S9.9 9.16 9.9 8s.94-2.1 2.1-2.1m0 9c2.97 0 6.1 1.46 6.1 2.1v1.1H5.9V17c0-.64 3.13-2.1 6.1-2.1M12 4C9.79 4 8 5.79 8 8s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4zm0 9c-2.67 0-8 1.34-8 4v3h16v-3c0-2.66-5.33-4-8-4z"/></svg>
+      </div>
+      <div>
+<img src="https://img.icons8.com/metro/26/000000/line-chart.png"/>
+      </div>
     </div>
-    <!-- Load index.js after the content of the page -->
-    <script src="index.js"></script>
-</body>
+  </div>
+  <div class='center'>
+    <h1>Progress Dashboard</h1>
+    <video autoplay playsinline muted id="webcam" width="500" height="500" "></video>
 
+    <div class="buttons">
+      <button id="class-a" class="green-btn">Proper Posture</button>
+      <button id="class-b" class="red-btn">Improper Posture</button>
+  </div>
+    <div class='row1'>
+      <div class='card1'>
+        <div class='deadline'>
+         
+<!-- partial -->
+<script src="index.js"></script>
+  
+</body>
 </html>
