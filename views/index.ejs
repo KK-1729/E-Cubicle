@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>E-Cubicle</title>
+  <script src="https://unpkg.com/@tensorflow/tfjs"></script>
+  <script src="https://unpkg.com/@tensorflow-models/mobilenet"></script>
+  <script src="https://unpkg.com/@tensorflow-models/knn-classifier"></script>
+  <link rel="stylesheet" type="text/css" href="index.css">
+  <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap" rel="stylesheet"> 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+<link rel="stylesheet" href="css/style.css">
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<div class="app-container">
+  <div class="app-header">
+    <div class="app-header-left">
+      <span class="app-icon"></span>
+      <p class="app-name">E-Cubicle</p>
+      <div class="search-wrapper">
+        <input class="search-input" type="text" placeholder="Search">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="feather feather-search" viewBox="0 0 24 24">
+          <defs></defs>
+          <circle cx="11" cy="11" r="8"></circle>
+          <path d="M21 21l-4.35-4.35"></path>
+        </svg>
+      </div>
+    </div>
+    <div class="app-header-right">
+      <button class="mode-switch" title="Switch Theme">
+        <svg class="moon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="24" height="24" viewBox="0 0 24 24">
+          <defs></defs>
+          <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+        </svg>
+      </button>
+      <button class="add-btn" title="Add New Project">
+        <svg class="btn-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus">
+          <line x1="12" y1="5" x2="12" y2="19" />
+          <line x1="5" y1="12" x2="19" y2="12" /></svg>
+      </button>
+      <button class="notification-btn">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-bell">
+          <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" />
+          <path d="M13.73 21a2 2 0 0 1-3.46 0" /></svg>
+      </button>
+      <button class="profile-btn">
+        <img src="https://assets.codepen.io/3306515/IMG_2025.jpg" />
+        <span>Butterfingers</span>
+      </button>
+    </div>
+    <button class="messages-btn">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-message-circle">
+        <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z" /></svg>
+    </button>
+  </div>
+  <div class="app-content">
+    <div class="app-sidebar">
+      <a href="/spotify" class="app-sidebar-link active">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-home">
+          <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+          <polyline points="9 22 9 12 15 12 15 22" /></svg>
+      </a>
+      <a href="" target="_blank" class="app-sidebar-link">
+        <svg   version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+        viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="preserve"width="24" height="24"   stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="feather feather-pie-chart" viewBox="0 0 24 24">
+         
+<g>
+	<g>
+		<path d="M209.297,106.47c-27.041-19.819-54.785-44.246-74.531-73.865L117.48,6.677c-3.662-5.493-10.488-7.939-16.831-6.035
+			C94.321,2.561,90,8.391,90,14.998v235.344c-8.86-5.167-19.023-8.344-30-8.344c-33.091,0-60,26.909-60,60
+			c0,33.091,26.909,59.999,60,59.999s60-26.909,60-60V64.249c21.196,26.792,47.71,48.93,71.558,66.42
+			C203.276,139.253,210,152.496,210,166.997c0,24.814-20.186,45-45,45c-8.291,0-15,6.709-15,15c0,8.291,6.709,15,15,15
+			c41.353,0,75-33.647,75-75C240,143.193,228.53,120.576,209.297,106.47z"/>
+	</g>
+</g>
+<g>
+	<g>
+		<path d="M492.884,122.569l-212,60c-6.445,1.846-10.884,7.734-10.884,14.429v203.344c-8.86-5.167-19.023-8.344-30-8.344
+			c-33.091,0-60,26.909-60,60s26.909,60,60,60s60-26.909,60-60c0-3.42,0-183.68,0-183.68l182-51.429v123.453
+			c-8.86-5.167-19.023-8.344-30-8.344c-33.091,0-60,26.909-60,60s26.909,60,60,60s60-26.909,60-60c0-3.42,0-255,0-255
+			C512,127.077,502.51,119.85,492.884,122.569z"/>
+	</g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+        </svg>
+      </a>
+      <a href="/blog" target="_blank" class="app-sidebar-link">
+        <svg viewBox="0 -20 512 511" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"  stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar">
+          <path d="m67.179688 48.394531h-.101563c-5.523437 0-10 4.476563-10 10 0 5.523438 4.476563 10 10 10h.101563c5.523437 0 10-4.476562 10-10 0-5.523437-4.476563-10-10-10zm0 0"/><path d="m116.710938 48.394531h-.101563c-5.523437 0-10 4.476563-10 10 0 5.523438 4.476563 10 10 10h.101563c5.523437 0 10-4.476562 10-10 0-5.523437-4.476563-10-10-10zm0 0"/><path d="m166.242188 48.394531h-.101563c-5.523437 0-10 4.476563-10 10 0 5.523438 4.476563 10 10 10h.101563c5.523437 0 10-4.476562 10-10 0-5.523437-4.476563-10-10-10zm0 0"/><path d="m444.308594 48.394531h-192.929688c-5.523437 0-10 4.476563-10 10 0 5.519531 4.476563 10 10 10h192.929688c5.523437 0 10-4.480469 10-10 0-5.523437-4.476563-10-10-10zm0 0"/><path d="m262.890625 452.4375c-2.628906 0-5.199219 1.070312-7.070313 2.929688-1.859374 1.859374-2.929687 4.441406-2.929687 7.070312s1.070313 5.210938 2.929687 7.070312c1.871094 1.859376 4.441407 2.929688 7.070313 2.929688s5.210937-1.070312 7.070313-2.929688c1.867187-1.859374 2.929687-4.441406 2.929687-7.070312s-1.0625-5.210938-2.929687-7.070312c-1.859376-1.859376-4.441407-2.929688-7.070313-2.929688zm0 0"/><path d="m480.230469.5h-448.460938c-17.515625 0-31.769531 14.253906-31.769531 31.769531v408.398438c0 17.519531 14.253906 31.769531 31.769531 31.769531h189.230469c5.523438 0 10-4.476562 10-10s-4.476562-10-10-10h-189.230469c-6.488281 0-11.769531-5.277344-11.769531-11.769531v-324.378907h472v324.378907c0 6.488281-5.28125 11.769531-11.769531 11.769531h-176.5625c-5.523438 0-10 4.476562-10 10s4.476562 10 10 10h176.5625c17.515625 0 31.769531-14.25 31.769531-31.769531v-408.398438c0-17.515625-14.253906-31.769531-31.769531-31.769531zm-460.230469 95.785156v-64.015625c0-6.488281 5.28125-11.769531 11.769531-11.769531h448.460938c6.488281 0 11.769531 5.28125 11.769531 11.769531v64.019531h-472zm0 0"/><path d="m178.039062 230.5c0-19.851562-16.148437-36-36-36h-33.667968c-5.523438 0-10 4.476562-10 10v104c0 5.523438 4.476562 10 10 10h33.667968c19.851563 0 36-16.148438 36-36 0-10.214844-4.28125-19.441406-11.140624-26 6.859374-6.558594 11.140624-15.785156 11.140624-26zm-20 52c0 8.820312-7.179687 16-16 16h-23.667968v-32h23.667968c8.820313 0 16 7.175781 16 16zm-39.667968-36v-32h23.667968c8.824219 0 16 7.179688 16 16s-7.175781 16-16 16zm0 0"/><path d="m206.648438 194.5c-5.523438 0-10 4.476562-10 10v80.871094c0 18.269531 14.863281 33.128906 33.128906 33.128906 5.523437 0 10-4.476562 10-10s-4.476563-10-10-10c-7.238282 0-13.128906-5.890625-13.128906-13.128906v-80.871094c0-5.523438-4.476563-10-10-10zm0 0"/><path d="m324.867188 282.289062c0-19.96875-16.242188-36.214843-36.210938-36.214843s-36.210938 16.246093-36.210938 36.214843 16.246094 36.210938 36.210938 36.210938c19.96875 0 36.210938-16.242188 36.210938-36.210938zm-52.421876 0c0-8.941406 7.273438-16.214843 16.210938-16.214843s16.210938 7.273437 16.210938 16.214843c0 8.9375-7.269532 16.210938-16.210938 16.210938s-16.210938-7.273438-16.210938-16.210938zm0 0"/><path d="m377.414062 346.5c-8.9375 0-16.210937-7.273438-16.210937-16.210938 0-5.523437-4.476563-10-10-10s-10 4.476563-10 10c0 19.96875 16.246094 36.210938 36.210937 36.210938 19.96875 0 36.214844-16.242188 36.214844-36.210938v-48c0-19.96875-16.246094-36.214843-36.214844-36.214843-19.964843 0-36.210937 16.246093-36.210937 36.214843s16.246094 36.210938 36.210937 36.210938c5.828126 0 11.332032-1.390625 16.214844-3.847656v15.636718c0 8.9375-7.273437 16.210938-16.214844 16.210938zm0-48c-8.9375 0-16.210937-7.273438-16.210937-16.210938 0-8.941406 7.273437-16.214843 16.210937-16.214843 8.941407 0 16.214844 7.273437 16.214844 16.214843 0 8.9375-7.273437 16.210938-16.214844 16.210938zm0 0"/><path d="m108.371094 416.5h295.257812c5.523438 0 10-4.476562 10-10s-4.476562-10-10-10h-295.257812c-5.519532 0-10 4.476562-10 10s4.480468 10 10 10zm0 0"/></svg></svg>
+      </a>
+      <a href="/todo" target="_blank" class="app-sidebar-link">
+        <svg class="link-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="feather feather-settings" viewBox="0 0 24 24">
+          <defs />
+          <circle cx="12" cy="12" r="3" />
+          <path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-2 2 2 2 0 01-2-2v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83 0 2 2 0 010-2.83l.06-.06a1.65 1.65 0 00.33-1.82 1.65 1.65 0 00-1.51-1H3a2 2 0 01-2-2 2 2 0 012-2h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 010-2.83 2 2 0 012.83 0l.06.06a1.65 1.65 0 001.82.33H9a1.65 1.65 0 001-1.51V3a2 2 0 012-2 2 2 0 012 2v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 0 2 2 0 010 2.83l-.06.06a1.65 1.65 0 00-.33 1.82V9a1.65 1.65 0 001.51 1H21a2 2 0 012 2 2 2 0 01-2 2h-.09a1.65 1.65 0 00-1.51 1z" />
+        </svg>
+      </a>
+    </div>
+    <div class="projects-section">
+      <div class="projects-section-header">
+        <h2 style="margin-top: -30em; width: 15em; margin-left: 1em;">Posture Assesment</h2>
+        <video autoplay playsinline muted id="webcam" width="500" height="500" "></video>
+    <div class="buttons">
+      <button id="class-a" class="green-btn">Proper Posture</button>
+      <button id="class-b" class="red-btn">Improper Posture</button>
+  </div>
+        <h2 class="proj-title">Projects</h2>
+        <!-- <p class="time">December, 12</p> -->
+      </div>
+      <div class="projects-section-line">
+        <div class="projects-status">
+          <div class="item-status">
+            <span class="status-number">45</span>
+            <span class="status-type">In Progress</span>
+          </div>
+          <div class="item-status">
+            <span class="status-number">24</span>
+            <span class="status-type">Upcoming</span>
+          </div>
+          <div class="item-status">
+            <span class="status-number">62</span>
+            <span class="status-type">Total Projects</span>
+          </div>
+        </div>
+        <div class="view-actions">
+          <button class="view-btn list-view" title="List View">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-list">
+              <line x1="8" y1="6" x2="21" y2="6" />
+              <line x1="8" y1="12" x2="21" y2="12" />
+              <line x1="8" y1="18" x2="21" y2="18" />
+              <line x1="3" y1="6" x2="3.01" y2="6" />
+              <line x1="3" y1="12" x2="3.01" y2="12" />
+              <line x1="3" y1="18" x2="3.01" y2="18" /></svg>
+          </button>
+          <button class="view-btn grid-view active" title="Grid View">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-grid">
+              <rect x="3" y="3" width="7" height="7" />
+              <rect x="14" y="3" width="7" height="7" />
+              <rect x="14" y="14" width="7" height="7" />
+              <rect x="3" y="14" width="7" height="7" /></svg>
+          </button>
+        </div>
+      </div>
+      <div class="project-boxes jsGridView" >
+        <div class="project-box-wrapper">
+          <div class="project-box" style="background-color: #fee4cb;">
+            <div class="project-box-header">
+              <span>December 10, 2020</span>
+              <div class="more-wrapper">
+                <button class="project-btn-more">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-more-vertical">
+                    <circle cx="12" cy="12" r="1" />
+                    <circle cx="12" cy="5" r="1" />
+                    <circle cx="12" cy="19" r="1" /></svg>
+                </button>
+          </div>
+        </div>
+        <div class="project-box-content-header">
+          <p class="box-content-header">Web Designing</p>
+          <p class="box-content-subheader">Prototyping</p>
+        </div>
+        <div class="box-progress-wrapper">
+          <p class="box-progress-header">Progress</p>
+          <div class="box-progress-bar">
+            <span class="box-progress" style="width: 60%; background-color: #ff942e"></span>
+          </div>
+          <p class="box-progress-percentage">60%</p>
+        </div>
+        <div class="project-box-footer" >
+          <div class="participants">
+            <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=2550&q=80" alt="participant">
+            <img src="https://images.unsplash.com/photo-1503023345310-bd7c1de61c7d?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MTB8fG1hbnxlbnwwfHwwfA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=900&q=60" alt="participant">
+            <button class="add-participant" style="color: #ff942e;">
+              <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus">
+                <path d="M12 5v14M5 12h14" />
+              </svg>
+            </button>
+          </div>
+          <div class="days-left" style="color: #ff942e;">
+            2 Days Left
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="project-box-wrapper">
+      <div class="project-box" style="background-color: #e9e7fd;">
+        <div class="project-box-header">
+          <span>December 10, 2020</span>
+          <div class="more-wrapper">
+            <button class="project-btn-more">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-more-vertical">
+                <circle cx="12" cy="12" r="1" />
+                <circle cx="12" cy="5" r="1" />
+                <circle cx="12" cy="19" r="1" /></svg>
+            </button>
+          </div>
+        </div>
+        <div class="project-box-content-header">
+          <p class="box-content-header">Testing</p>
+          <p class="box-content-subheader">Prototyping</p>
+        </div>
+        <div class="box-progress-wrapper">
+          <p class="box-progress-header">Progress</p>
+          <div class="box-progress-bar">
+            <span class="box-progress" style="width: 50%; background-color: #4f3ff0"></span>
+          </div>
+          <p class="box-progress-percentage">50%</p>
+        </div>
+        <div class="project-box-footer">
+          <div class="participants">
+            <img src="https://images.unsplash.com/photo-1596815064285-45ed8a9c0463?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1215&q=80" alt="participant">
+            <img src="https://images.unsplash.com/photo-1583195764036-6dc248ac07d9?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=2555&q=80" alt="participant">
+            <button class="add-participant" style="color: #4f3ff0;">
+              <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus">
+                <path d="M12 5v14M5 12h14" />
+              </svg>
+            </button>
+          </div>
+          <div class="days-left" style="color: #4f3ff0;">
+            2 Days Left
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="project-box-wrapper">
+      <div class="project-box">
+        <div class="project-box-header">
+          <span>December 10, 2020</span>
+          <div class="more-wrapper">
+            <button class="project-btn-more">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-more-vertical">
+                <circle cx="12" cy="12" r="1" />
+                <circle cx="12" cy="5" r="1" />
+                <circle cx="12" cy="19" r="1" /></svg>
+            </button>
+          </div>
+        </div>
+        <div class="project-box-content-header">
+          <p class="box-content-header">Svg Animations</p>
+          <p class="box-content-subheader">Prototyping</p>
+        </div>
+        <div class="box-progress-wrapper">
+          <p class="box-progress-header">Progress</p>
+          <div class="box-progress-bar">
+            <span class="box-progress" style="width: 80%; background-color: #096c86"></span>
+          </div>
+          <p class="box-progress-percentage">80%</p>
+        </div>
+        <div class="project-box-footer">
+          <div class="participants">
+            <img src="https://images.unsplash.com/photo-1587628604439-3b9a0aa7a163?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MjR8fHdvbWFufGVufDB8fDB8&ixlib=rb-1.2.1&auto=format&fit=crop&w=900&q=60" alt="participant">
+            <img src="https://images.unsplash.com/photo-1596815064285-45ed8a9c0463?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1215&q=80" alt="participant">
+            <button class="add-participant" style="color: #096c86;">
+              <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus">
+                <path d="M12 5v14M5 12h14" />
+              </svg>
+            </button>
+          </div>
+          <div class="days-left" style="color: #096c86;">
+            2 Days Left
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="project-box-wrapper">
+      <div class="project-box" style="background-color: #ffd3e2;">
+        <div class="project-box-header">
+          <span>December 10, 2020</span>
+          <div class="more-wrapper">
+            <button class="project-btn-more">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-more-vertical">
+                <circle cx="12" cy="12" r="1" />
+                <circle cx="12" cy="5" r="1" />
+                <circle cx="12" cy="19" r="1" /></svg>
+            </button>
+          </div>
+        </div>
+        <div class="project-box-content-header">
+          <p class="box-content-header">UI Development</p>
+          <p class="box-content-subheader">Prototyping</p>
+        </div>
+        <div class="box-progress-wrapper">
+          <p class="box-progress-header">Progress</p>
+          <div class="box-progress-bar">
+            <span class="box-progress" style="width: 20%; background-color: #df3670"></span>
+          </div>
+          <p class="box-progress-percentage">20%</p>
+        </div>
+        <div class="project-box-footer">
+          <div class="participants">
+            <img src="https://images.unsplash.com/photo-1600486913747-55e5470d6f40?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=2550&q=80" alt="participant">
+            <img src="https://images.unsplash.com/photo-1587628604439-3b9a0aa7a163?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MjR8fHdvbWFufGVufDB8fDB8&ixlib=rb-1.2.1&auto=format&fit=crop&w=900&q=60" alt="participant">
+            <button class="add-participant" style="color: #df3670;">
+              <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus">
+                <path d="M12 5v14M5 12h14" />
+              </svg>
+            </button>
+          </div>
+          <div class="days-left" style="color: #df3670;">
+            2 Days Left
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="project-box-wrapper">
+      <div class="project-box" style="background-color: #c8f7dc;">
+        <div class="project-box-header">
+          <span>December 10, 2020</span>
+          <div class="more-wrapper">
+            <button class="project-btn-more">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-more-vertical">
+                <circle cx="12" cy="12" r="1" />
+                <circle cx="12" cy="5" r="1" />
+                <circle cx="12" cy="19" r="1" /></svg>
+            </button>
+          </div>
+        </div>
+        <div class="project-box-content-header">
+          <p class="box-content-header">Data Analysis</p>
+          <p class="box-content-subheader">Prototyping</p>
+        </div>
+        <div class="box-progress-wrapper">
+          <p class="box-progress-header">Progress</p>
+          <div class="box-progress-bar">
+            <span class="box-progress" style="width: 60%; background-color: #34c471"></span>
+          </div>
+          <p class="box-progress-percentage">60%</p>
+        </div>
+        <div class="project-box-footer">
+          <div class="participants">
+            <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=2550&q=80" alt="participant">
+            <img src="https://images.unsplash.com/photo-1503023345310-bd7c1de61c7d?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MTB8fG1hbnxlbnwwfHwwfA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=900&q=60" alt="participant">
+            <button class="add-participant" style="color: #34c471;">
+              <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus">
+                <path d="M12 5v14M5 12h14" />
+              </svg>
+            </button>
+          </div>
+          <div class="days-left" style="color: #34c471;">
+            2 Days Left
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="project-box-wrapper">
+      <div class="project-box" style="background-color: #d5deff;">
+        <div class="project-box-header">
+          <span>December 10, 2020</span>
+          <div class="more-wrapper">
+            <button class="project-btn-more">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-more-vertical">
+                <circle cx="12" cy="12" r="1" />
+                <circle cx="12" cy="5" r="1" />
+                <circle cx="12" cy="19" r="1" /></svg>
+            </button>
+          </div>
+        </div>
+        <div class="project-box-content-header">
+          <p class="box-content-header">Web Designing</p>
+          <p class="box-content-subheader">Prototyping</p>
+        </div>
+        <div class="box-progress-wrapper">
+          <p class="box-progress-header">Progress</p>
+          <div class="box-progress-bar">
+            <span class="box-progress" style="width: 40%; background-color: #4067f9"></span>
+          </div>
+          <p class="box-progress-percentage">40%</p>
+        </div>
+        <div class="project-box-footer">
+          <div class="participants">
+            <img src="https://images.unsplash.com/photo-1600486913747-55e5470d6f40?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=2550&q=80" alt="participant">
+            <img src="https://images.unsplash.com/photo-1583195764036-6dc248ac07d9?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=2555&q=80" alt="participant">
+            <button class="add-participant" style="color: #4067f9;">
+              <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus">
+                <path d="M12 5v14M5 12h14" />
+              </svg>
+            </button>
+          </div>
+          <div class="days-left" style="color: #4067f9;">
+            2 Days Left
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- partial -->
+  <script  src="js/script.js"></script>
+
+</body>
+</html>
