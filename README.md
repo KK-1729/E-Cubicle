@@ -7,6 +7,6 @@ The objective is to calibrate our posture and provide all set of requirements fo
 - <code><img height="35" src="https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/html/html.png"></code> HTML
 - <code><img height="35" src="https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/css/css.png"></code> CSS
 - <code><img height="35" src="https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/javascript/javascript.png"></code> Javascript
-- <code><img height="35" src="https://www.google.com/url?sa=i&url=https%3A%2F%2Fgithub.com%2Finquid%2Fyii2-tensorflow-js&psig=AOvVaw055tGS8jE-YYvyp_KWuZbr&ust=1621229447053000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCIi33b28zfACFQAAAAAdAAAAABAJ"></code> Tensorflow
+- <code><img height="35" src="https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/tensorflowjs/tensorflowjs.png"></code> Tensorflow
 - <code><img height="35" src="https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/react/react.png"></code> React
 - <code><img height="35" src="https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/nodejs/nodejs.png"></code> Node
